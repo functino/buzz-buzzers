@@ -1,4 +1,4 @@
-# buzz-buzzers - Use the Playstation Buzz  Buzzers with node.js
+# buzz-buzzers - Use the wireless "Playstation Buzz" Buzzers with node.js
 
 ## Installation
 `npm install buzz-buzzers`
@@ -6,20 +6,33 @@
 ## Usage
 First plug in the USB dongle of your Playstation Buzz Buzzers. Connect/pair your controllers (see below for hints on that). Then you can use this library like this:
 
-```
+
+### Initialize
+```js
 var buzzBuzzers = require('buzzBuzzers');
 var buzzers = buzzBuzzers(); // initialize buzzers
-
-buzzers.onPress(function(info) {
-	// info is an object with two attributes:
+```
+### Get notified when button is pressed
+```js
+buzzers.onPress(function(ev) {
+	// ev is an object with two attributes:
 	// - controller: Number from 1 to 4
 	// - button: Number from 0 to 4. 0 is the big red button.
-	console.log('Button ' + info.button + ' on controller ' + info.controller pressed');
+	console.log('Button ' + ev.button + ' on controller ' + ev.controller + ' pressed');
 });
-buzzers.onRelease(function(info) {
-	console.log('Button ' + info.button + ' on controller ' + info.controller released');
-});
+```
 
+### Get notified when button is released
+```js
+buzzers.onRelease(function(ev) {
+	console.log('Button ' + ev.button + ' on controller ' + ev.controller + ' released');
+});
+```
+
+
+### Get notified whenever something changes
+
+```js
 buzzers.onChange(function(state) {
 	// state is an array of booleans with all buttons
 	// false means the button is not pressed
@@ -34,15 +47,27 @@ buzzers.onChange(function(state) {
     ]
 	*/
 });
+```
 
+### Get notfied when an error happens
+
+```js
 buzzers.onError(function(err) {
 	console.log('Error: ', err);
 });
+```
 
+### Remove event listeners
+
+```js
 // To remove a listener just call removeEventListener
 // possible first parameter values are: press, release, change, error
 buzzers.removeEventListener('press', callback);
+```
 
+### Make a buzzer light up
+
+```js
 buzzers.setLeds(true, false, false, false); // light up controller number 1
 buzzers.setLeds(true, true, false, true); // light up all controllers except for number 3
 

@@ -29,8 +29,5 @@ buzzers.onRelease(function(ev) {
 });
 
 buzzers.onChange(function(ev) {
-    console.log(
-        `CHANGED: ${ev}`
-    );
+    console.log(`CHANGED: ${ev}`);
 });
-

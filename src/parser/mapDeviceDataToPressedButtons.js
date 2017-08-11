@@ -30,7 +30,7 @@ module.exports = function(readBytes) {
             bytes: [2, 2],
             button: 0,
             controller: 2
-        },        
+        },
         {
             bytes: [3, 6],
             button: 1,
@@ -57,7 +57,7 @@ module.exports = function(readBytes) {
             bytes: [3, 5],
             button: 0,
             controller: 3
-        },        
+        },
         {
             bytes: [3, 1],
             button: 1,

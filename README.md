@@ -1,10 +1,11 @@
-# buzz-buzzers - Use the wireless "Playstation Buzz" Buzzers with node.js
+# buzz-buzzers - Use the wired or wireless "Playstation Buzz" Buzzers with node.js
 
 ## Installation
 `npm install buzz-buzzers`
 
 ## Usage
-First plug in the USB dongle of your Playstation Buzz Buzzers. Connect/pair your controllers (see below for hints on that). Then you can use this library like this:
+For the wired buzzers simply plug them in and you're ready to go.
+For the wireless Playsation Buzz Buzzers, first plug in the USB dongle of your huzzers. Connect/pair your controllers (see below for hints on that). Then you can use this library like this:
 
 
 ### Initialize

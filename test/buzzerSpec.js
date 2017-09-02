@@ -5,7 +5,7 @@ const createBuzzer = require('../src/buzzer');
 const device = {
     onError: sinon.stub(),
     onChange: sinon.stub(),
-    setLeds: sinon.spy()
+    setLeds: sinon.stub()
 };
 
 function getBuzzer() {
@@ -36,10 +36,28 @@ function getButtonStates() {
     ];
 }
 
+test('when setWrite fails during setup it should catch this', t => {
+    device.setLeds.throws('could not write');
+    const buzzer = getBuzzer();
+    buzzer.setLeds(true, false, true, false);
+    t.true(device.setLeds.calledWith([true, false, true, false]));
+});
+
 test('setLeds', t => {
     const buzzer = getBuzzer();
     buzzer.setLeds(true, false, true, false);
     t.true(device.setLeds.calledWith([true, false, true, false]));
+});
+
+test('when device.setLeds throws onError should be called', t => {
+    device.setLeds.throws('could not write');
+    const buzzer = getBuzzer();
+    buzzer.setLeds(true, false, true, false);
+    t.true(
+        device.onError.calledWith(
+            'could not set led status. Older versions of the buzz buzzers do not support this.'
+        )
+    );
 });
 
 test('onChange should register an onChange listener', t => {

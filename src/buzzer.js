@@ -51,7 +51,11 @@ module.exports = device => {
         [EVENTS.ERROR]: []
     };
 
-    device.setLeds([false, false, false, false]);
+    try {
+        device.setLeds([false, false, false, false]);
+    } catch (e) {
+        // older versions don't have an led
+    }
 
     device.onChange(function(states) {
         states.forEach((state, index) => {
@@ -71,7 +75,14 @@ module.exports = device => {
 
     return {
         setLeds(...states) {
-            device.setLeds(states);
+            try {
+                device.setLeds(states);
+            } catch (e) {
+                triggerEvent(
+                    EVENTS.ERROR,
+                    'could not set led status. Older versions of the buzz buzzers do not support this.'
+                );
+            }
         },
         onChange: addEventListener.bind(this, EVENTS.CHANGE),
         onPress: addEventListener.bind(this, EVENTS.PRESS),

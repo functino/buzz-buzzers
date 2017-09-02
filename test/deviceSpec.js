@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const mapDeviceDataToPressedButtons = sinon.stub();
 const usbDevice = {
-    write: sinon.spy(),
+    write: sinon.stub(),
     on: sinon.stub()
 };
 const nodeHid = {

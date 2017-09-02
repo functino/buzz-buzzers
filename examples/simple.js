@@ -13,7 +13,7 @@ function blinkBuzzerLeds() {
 
 blinkBuzzerLeds();
 buzzers.onError(function(err) {
-    console.log('Error: ', err);
+    console.log('Error:', err);
 });
 
 buzzers.onPress(function(ev) {

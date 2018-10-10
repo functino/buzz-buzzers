@@ -1,4 +1,4 @@
-module.exports = device => {
+module.exports = (device, options) => {
     let previousStates = [
         false,
         false,
@@ -51,13 +51,32 @@ module.exports = device => {
         [EVENTS.ERROR]: []
     };
 
-    try {
-        device.setLeds([false, false, false, false]);
-    } catch (e) {
-        // older versions don't have an led
+    function sendKeepAlive() {
+        try {
+            console.log('sending....');
+            device.setLeds([false, false, false, false]);
+        } catch (e) {
+            // older versions don't have an led
+        }
     }
+    sendKeepAlive();
+
+    let keepAliveTimeout = null;
+
+    function resetKeepAlive() {
+        if (!options.keepAlive) {
+            return;
+        }
+        clearTimeout(keepAliveTimeout);
+        keepAliveTimeout = setTimeout(function() {
+            sendKeepAlive();
+            resetKeepAlive();
+        }, 1000 * 60 * 19);
+    }
+    resetKeepAlive();
 
     device.onChange(function(states) {
+        resetKeepAlive();
         states.forEach((state, index) => {
             const previousState = previousStates[index];
             if (state !== previousState) {
@@ -76,6 +95,7 @@ module.exports = device => {
     return {
         setLeds(...states) {
             try {
+                resetKeepAlive();
                 device.setLeds(states);
             } catch (e) {
                 triggerEvent(

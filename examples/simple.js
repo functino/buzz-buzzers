@@ -1,6 +1,6 @@
 const buzzBuzzers = require('../src/index');
 
-const buzzers = buzzBuzzers();
+const buzzers = buzzBuzzers({keepAlive: true});
 
 function blinkBuzzerLeds() {
     setInterval(function() {

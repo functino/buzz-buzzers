@@ -16,6 +16,11 @@ Then you can use this library like this:
 var buzzBuzzers = require('buzzBuzzers');
 var buzzers = buzzBuzzers(); // initialize buzzers
 
+// or initialize buzzers with a keepAlive=true
+// var buzzers = buzzBuzzers({ keepAlive: true });
+// this will periodically switch off all leds to make sure
+// that the buzzers don't switch off because nothing was sent
+
 // Get notified when a button is pressed
 buzzers.onPress(function(ev) {
 	// ev is an object with two attributes:
@@ -66,6 +71,10 @@ buzzers.setLeds(true, true, false, true); // light up all controllers except for
 First you have to initialize the buzzers:
 `var buzzers = require('buzz-buzzers')();`
 
+You can pass `keepAlive: true` to make sure your wireless buzzers never switch off:
+`var buzzers = require('buzz-buzzers')({ keepAlive: true });`
+This will automatically call `setLeds(false, false, false, false)` every 19 minutes when no other action happens. (This is because otherwise your (wireless) buzzers will switch off after 20 minutes)
+
 `buzzers` now has the following API:
 
 ### `onPress(callback)`
@@ -111,6 +120,10 @@ First plug in the USB dongle. Next take your first controller and move the switc
 Then release the button and press it once more. Now you can start your node program to access the buzzer.
 
 ## Changelog
+
+### 1.1.0
+All dependencies have been updated.
+Additionally I've added an `keepAlive: true` option.
 
 ### 1.0.1
 Older devices (e.g. the non wireless version for playstation 2) don't allow lighting up the LEDs. Previously calling `setLeds` lead to a crash - now we catch those cases and call the error callback.

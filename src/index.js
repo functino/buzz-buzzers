@@ -6,4 +6,6 @@ const mapDeviceDataToPressedButtons = require('./parser/mapDeviceDataToPressedBu
     readBytes
 );
 
-module.exports = () => buzzer(device(nodeHid, mapDeviceDataToPressedButtons));
+module.exports = (options = {}) => {
+    return buzzer(device(nodeHid, mapDeviceDataToPressedButtons), options);
+};

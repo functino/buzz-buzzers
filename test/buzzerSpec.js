@@ -2,14 +2,15 @@ const test = require('ava');
 const sinon = require('sinon');
 const createBuzzer = require('../src/buzzer');
 
-const device = {
-    onError: sinon.stub(),
-    onChange: sinon.stub(),
-    setLeds: sinon.stub()
-};
+let device = null;
 
-function getBuzzer() {
-    return createBuzzer(device);
+function getBuzzer(keepAlive = false) {
+    device = {
+        onError: sinon.stub(),
+        onChange: sinon.stub(),
+        setLeds: sinon.stub()
+    };
+    return createBuzzer(device, {keepAlive});
 }
 function getButtonStates() {
     return [
@@ -37,8 +38,8 @@ function getButtonStates() {
 }
 
 test('when setWrite fails during setup it should catch this', t => {
-    device.setLeds.throws('could not write');
     const buzzer = getBuzzer();
+    device.setLeds.throws('could not write');
     buzzer.setLeds(true, false, true, false);
     t.true(device.setLeds.calledWith([true, false, true, false]));
 });
@@ -50,8 +51,8 @@ test('setLeds', t => {
 });
 
 test('when device.setLeds throws onError should be called', t => {
-    device.setLeds.throws('could not write');
     const buzzer = getBuzzer();
+    device.setLeds.throws('could not write');
     const callback = sinon.spy();
     buzzer.onError(callback);
     buzzer.setLeds(true, false, true, false);
@@ -129,4 +130,39 @@ test('removeEventListener should remove added event listeners', t => {
     device.onChange.yield(buttonStates);
 
     t.is(callback.callCount, 0);
+});
+
+test('when keepAlive option is set it should call setLeds periodically', t => {
+    const clock = sinon.useFakeTimers();
+    getBuzzer(true);
+    const timeout = 1000 * 60 * 19;
+    clock.tick(timeout);
+    clock.tick(timeout);
+    clock.tick(timeout);
+    clock.restore();
+    t.is(device.setLeds.callCount, 4);
+});
+
+test('when keepAlive option is set it should call setLeds periodically but not if setLeds was called manually', t => {
+    const clock = sinon.useFakeTimers();
+    const buzzer = getBuzzer(true);
+    const timeout = 1000 * 60 * 19;
+    clock.tick(timeout - 1);
+    buzzer.setLeds(true, true, true, true);
+    clock.tick(1);
+
+    clock.restore();
+    t.is(device.setLeds.callCount, 2);
+});
+
+test('when keepAlive option is set it should call setLeds periodically but not if a button was pressed', t => {
+    const clock = sinon.useFakeTimers();
+    getBuzzer(true);
+    const timeout = 1000 * 60 * 19;
+    clock.tick(timeout - 1);
+    device.onChange.yield(getButtonStates());
+    clock.tick(1);
+
+    clock.restore();
+    t.is(device.setLeds.callCount, 1);
 });

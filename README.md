@@ -112,5 +112,8 @@ Then release the button and press it once more. Now you can start your node prog
 
 ## Changelog
 
+### 1.0.2
+Update of all dependencies.
+
 ### 1.0.1
 Older devices (e.g. the non wireless version for playstation 2) don't allow lighting up the LEDs. Previously calling `setLeds` lead to a crash - now we catch those cases and call the error callback.

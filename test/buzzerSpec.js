@@ -52,9 +52,11 @@ test('setLeds', t => {
 test('when device.setLeds throws onError should be called', t => {
     device.setLeds.throws('could not write');
     const buzzer = getBuzzer();
+    const callback = sinon.spy();
+    buzzer.onError(callback);
     buzzer.setLeds(true, false, true, false);
     t.true(
-        device.onError.calledWith(
+        callback.calledWith(
             'could not set led status. Older versions of the buzz buzzers do not support this.'
         )
     );

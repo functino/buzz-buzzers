@@ -6,7 +6,7 @@
 ## Usage
 Before you use this library you need to connect your buzz buzzers:
 -  for the wired buzzers simply plug them in
-- for the wireless Playsation Buzz Buzzers, first plug in the USB dongle of your huzzers. Connect/pair your controllers (see below for hints on that). 
+- for the wireless Playsation Buzz Buzzers, first plug in the USB dongle of your huzzers. Connect/pair your controllers (see below for hints on that).
 
 Then you can use this library like this:
 
@@ -82,14 +82,14 @@ Register a callback that is called whenever a button is pressed. It will be call
 Register a callback that is called whenever a button is released. It will be called with an event object in this format:
 
 ```
-{ 
+{
 	controller: 1, // which controller/buzzer was used. Number form 1-4
 	button: 0 // Which button was pressed. Number from 0 to 4. 0 is the big red button
 }
 ```
 
 ### `onChange(callback)`
-Register a callback that is called whenever any button changes it's state. Callback will be called with an array in the format 
+Register a callback that is called whenever any button changes it's state. Callback will be called with an array in the format
 
 ```
 [
@@ -107,7 +107,8 @@ Register a callback that is called when an error happens
 To light up the red LEDs of a buzzer. Pass in `true` to switch a light on and `false` to switch it off. Note that this does not work on some older buzz-buzzers since they don't have an LED. For those devices `onError` will be called when you call `setLeds`
 
 ## Hints on pairing the wireless buzz buzzers
-First plug in the USB dongle. Next take your first controller and move the switch to the upper position and hold it like that until the blue led at the bottom lights up. Repeat this step for all controllers. When done press the button on your USB dongle until the blue LED lights up. Then release the button and press it once more.
+First plug in the USB dongle. Next take your first controller and move the switch to the upper position and hold it like that until the blue led at the bottom lights up. Repeat this step for all controllers. When done press the button on your USB dongle and hold it until the blue LED lights up.
+Then release the button and press it once more. Now you can start your node program to access the buzzer.
 
 ## Changelog
 

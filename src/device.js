@@ -1,8 +1,7 @@
 module.exports = (nodeHid, mapDeviceDataToPressedButtons) => {
-    const VENDOR_ID = '1356';
-    const PRODUCT_ID = '4096';
 
-    const device = new nodeHid.HID(VENDOR_ID, PRODUCT_ID);
+    const buzzDevice = nodeHid.devices().find(device => device.product.match(/Buzz/));
+    const device = new nodeHid.HID(buzzDevice.vendorId, buzzDevice.productId);
 
     return {
         setLeds(states) {

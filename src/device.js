@@ -1,9 +1,7 @@
-module.exports = (nodeHid, mapDeviceDataToPressedButtons) => {
-    const VENDOR_ID = '1356';
-    const PRODUCT_ID = '4096';
+const nodeHid = require('node-hid');
 
-    const device = new nodeHid.HID(VENDOR_ID, PRODUCT_ID);
-
+module.exports = (connectDevice, mapDeviceDataToPressedButtons) => {
+    const device = connectDevice(nodeHid);
     return {
         setLeds(states) {
             device.write(

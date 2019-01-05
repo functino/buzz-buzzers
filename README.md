@@ -112,6 +112,11 @@ Then release the button and press it once more. Now you can start your node prog
 
 ## Changelog
 
+### 1.0.3
+- Some buzzer devices seem to use a different vendorId/productId and connecting the buzzers failed. Now `buzz-buzzers` is additionally searching for the name `Buzz` of connected usb devices if a device with could not be found by vendorId/productId. See: https://github.com/functino/buzz-buzzers/pull/3
+
+- Update of all dependencies
+
 ### 1.0.2
 Update of all dependencies.
 

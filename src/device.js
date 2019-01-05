@@ -1,8 +1,7 @@
-module.exports = (nodeHid, mapDeviceDataToPressedButtons) => {
+const nodeHid = require('node-hid');
 
-    const buzzDevice = nodeHid.devices().find(device => device.product.match(/Buzz/));
-    const device = new nodeHid.HID(buzzDevice.vendorId, buzzDevice.productId);
-
+module.exports = (connectDevice, mapDeviceDataToPressedButtons) => {
+    const device = connectDevice(nodeHid);
     return {
         setLeds(states) {
             device.write(

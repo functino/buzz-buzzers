@@ -1,9 +1,9 @@
 const buzzer = require('./buzzer');
 const device = require('./device');
-const nodeHid = require('node-hid');
+const connectDevice = require('./connectDevice');
 const readBytes = require('./parser/readBytes');
 const mapDeviceDataToPressedButtons = require('./parser/mapDeviceDataToPressedButtons')(
     readBytes
 );
 
-module.exports = () => buzzer(device(nodeHid, mapDeviceDataToPressedButtons));
+module.exports = () => buzzer(device(connectDevice, mapDeviceDataToPressedButtons));

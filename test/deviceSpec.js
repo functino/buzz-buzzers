@@ -1,16 +1,19 @@
 const test = require('ava');
 const sinon = require('sinon');
+const nodeHid = require('node-hid');
 
 const mapDeviceDataToPressedButtons = sinon.stub();
 const usbDevice = {
     write: sinon.stub(),
     on: sinon.stub()
 };
-const nodeHid = {
-    HID: sinon.stub().returns(usbDevice)
-};
+const connectDevice = sinon.stub().returns(usbDevice);
 
-const device = require('../src/device')(nodeHid, mapDeviceDataToPressedButtons);
+const device = require('../src/device')(connectDevice, mapDeviceDataToPressedButtons);
+
+test('use connectDevice to connect to device', t => {
+    t.true(connectDevice.calledWith(nodeHid));
+});
 
 test('setLeds to switch off all leds ', t => {
     device.setLeds([false, false, false, false]);

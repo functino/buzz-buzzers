@@ -6,7 +6,7 @@
 ## Usage
 Before you use this library you need to connect your buzz buzzers:
 -  for the wired buzzers simply plug them in
-- for the wireless Playsation Buzz Buzzers, first plug in the USB dongle of your huzzers. Connect/pair your controllers (see below for hints on that).
+- for the wireless Playsation Buzz Buzzers, first plug in the USB dongle of your buzzers. Connect/pair your controllers (see below for hints on that).
 
 Then you can use this library like this:
 

@@ -1,6 +1,6 @@
 {
   "name": "node-buzzers",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Forked version of 'buzz-buzzers', updated and upgraded to support multiple USB dongles",
   "keywords": [
     "ps3",

@@ -1,4 +1,4 @@
-# buzz-buzzers - Use the wired or wireless "Playstation Buzz" Buzzers with node.js
+# `node-buzzers` - Use the wired or wireless "Playstation Buzz" Buzzers with node.js
 
 ## Forked from [functino/buzz-buzzers](https://github.com/functino/buzz-buzzers)
 
@@ -9,20 +9,30 @@ This fork:
 - will work with more than 1 USB dongle
 
 ## Installation
-`npm install buzz-buzzers`
+
+`npm install node-buzzers`
 
 ## Usage
-Before you use this library you need to connect your buzz buzzers:
--  for the wired buzzers simply plug them in
+
+Before you use this library you need to connect your buzzers:
+- for the wired buzzers simply plug them in
 - for the wireless Playsation Buzz Buzzers, first plug in the USB dongle of your buzzers. Connect/pair your controllers (see below for hints on that).
 
 Then you can use this library like this:
 
-
 ### Examples
+
 ```js
-var buzzBuzzers = require('buzzBuzzers');
-var buzzers = buzzBuzzers(); // initialize buzzers
+var nodeBuzzers = require('node-buzzers');
+var buzzers = nodeBuzzers();
+var ledLight = true;
+
+// Make all buzzers blinks
+// this only works on the buzzers with an LED
+setInterval(function () {
+  ledLight = !ledLight;
+  buzzers.setLeds(ledLight, ledLight, ledLight, ledLight);
+}, 500);
 
 // Get notified when a button is pressed
 buzzers.onPress(function(ev) {
@@ -61,18 +71,14 @@ buzzers.onError(function(err) {
 // Remove event listeners
 // To remove a listener just call removeEventListener
 // possible first parameter values are: press, release, change, error
-buzzers.removeEventListener('press', callback);
 
-
-// Make a buzzer light up
-// this only works on the buzzers with an LED
-buzzers.setLeds(true, false, false, false); // light up controller number 1
-buzzers.setLeds(true, true, false, true); // light up all controllers except for number 3
+// buzzers.removeEventListener('press', callback);
 ```
 
 ## API
+
 First you have to initialize the buzzers:
-`var buzzers = require('buzz-buzzers')();`
+`var buzzers = require('node-buzzers')();`
 
 `buzzers` now has the following API:
 
@@ -87,6 +93,7 @@ Register a callback that is called whenever a button is pressed. It will be call
 ```
 
 ### `onRelease(callback)`
+
 Register a callback that is called whenever a button is released. It will be called with an event object in this format:
 
 ```
@@ -97,6 +104,7 @@ Register a callback that is called whenever a button is released. It will be cal
 ```
 
 ### `onChange(callback)`
+
 Register a callback that is called whenever any button changes it's state. Callback will be called with an array in the format
 
 ```
@@ -109,27 +117,22 @@ Register a callback that is called whenever any button changes it's state. Callb
 ```
 
 ### `onError(callback)`
+
 Register a callback that is called when an error happens
 
 ### `setLeds(redButton1, redButton2, redButton3, redButton4)`:
-To light up the red LEDs of a buzzer. Pass in `true` to switch a light on and `false` to switch it off. Note that this does not work on some older buzz-buzzers since they don't have an LED. For those devices `onError` will be called when you call `setLeds`
+
+To light up the red LEDs of a buzzer. Pass in `true` to switch a light on and `false` to switch it off. Note that this does not work on some older buzzers since they don't have an LED. For those devices `onError` will be called when you call `setLeds`
 
 ## Hints on pairing the wireless buzz buzzers
-First plug in the USB dongle. Next take your first controller and move the switch to the upper position and hold it like that until the blue led at the bottom lights up. Repeat this step for all controllers. When done press the button on your USB dongle and hold it until the blue LED lights up.
-Then release the button and press it once more. Now you can start your node program to access the buzzer.
+
+1. First plug in the USB dongle
+2. Take a controller and move the switch to the upper position and hold it like that until the blue led at the bottom lights up
+3. Repeat this step for all controllers
+4. When done press the button on your USB dongle and hold it until the blue LED lights up
 
 ## Changelog
 
 ### 2.0.0
+- Forked version from [functino/buzz-buzzers](https://github.com/functino/buzz-buzzers)
 - Works with Node 16 and has updated dependencies
-
-### 1.0.3
-- Some buzzer devices seem to use a different vendorId/productId and connecting the buzzers failed. Now `buzz-buzzers` is additionally searching for the name `Buzz` of connected usb devices if a device with could not be found by vendorId/productId. See: https://github.com/functino/buzz-buzzers/pull/3
-
-- Update of all dependencies
-
-### 1.0.2
-Update of all dependencies.
-
-### 1.0.1
-Older devices (e.g. the non wireless version for playstation 2) don't allow lighting up the LEDs. Previously calling `setLeds` lead to a crash - now we catch those cases and call the error callback.

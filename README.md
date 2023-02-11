@@ -1,5 +1,13 @@
 # buzz-buzzers - Use the wired or wireless "Playstation Buzz" Buzzers with node.js
 
+## Forked from [functino/buzz-buzzers](https://github.com/functino/buzz-buzzers)
+
+This fork:
+
+- is working with Node 16
+- has updated dependencies
+- will work with more than 1 USB dongle
+
 ## Installation
 `npm install buzz-buzzers`
 
@@ -111,6 +119,9 @@ First plug in the USB dongle. Next take your first controller and move the switc
 Then release the button and press it once more. Now you can start your node program to access the buzzer.
 
 ## Changelog
+
+### 2.0.0
+- Works with Node 16 and has updated dependencies
 
 ### 1.0.3
 - Some buzzer devices seem to use a different vendorId/productId and connecting the buzzers failed. Now `buzz-buzzers` is additionally searching for the name `Buzz` of connected usb devices if a device with could not be found by vendorId/productId. See: https://github.com/functino/buzz-buzzers/pull/3

@@ -1,6 +1,27 @@
 {
-  "name": "buzz-buzzers",
+  "name": "node-buzzers",
   "version": "1.0.3",
+  "description": "Forked version of 'buzz-buzzers', updated and upgraded to support multiple USB dongles",
+  "keywords": [
+    "ps3",
+    "playstation",
+    "buzz",
+    "buzzers",
+    "usb",
+    "dongle",
+    "node",
+    "nodejs",
+    "quizz"
+  ],
+  "author": "François Massart",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/francoismassart/node-buzzers.git"
+  },
+  "bugs": {
+    "url": "https://github.com/francoismassart/node-buzzers/issues"
+  },
+  "homepage": "https://github.com/francoismassart/node-buzzers#readme",
   "main": "src/index.js",
   "scripts": {
     "dev": "node examples/simple",
@@ -10,7 +31,6 @@
     "pretty": "prettier --single-quote --tab-width 4 --write \"{src,test,examples}/**/*.js\"",
     "lint": "eslint ."
   },
-  "author": "Andreas",
   "dependencies": {
     "node-hid": "^2.1.2"
   },
@@ -20,13 +40,8 @@
     "prettier": "^2.8.4",
     "sinon": "^15.0.1"
   },
-  "description": "Simple access to buzz buzzers",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/functino/buzz-buzzers.git"
+  "engines": {
+    "node": ">=16.15.1"
   },
-  "bugs": {
-    "url": "https://github.com/functino/buzz-buzzers/issues"
-  },
-  "homepage": "https://github.com/functino/buzz-buzzers#readme"
+  "license": "MIT"
 }

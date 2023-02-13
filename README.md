@@ -6,7 +6,7 @@ This fork:
 
 - is working with Node 16
 - has updated dependencies
-- will work with more than 1 USB dongle
+- can work with more than 1 USB dongle (see `examples/multi-blink.js`)
 
 ## Installation
 
@@ -132,6 +132,9 @@ To light up the red LEDs of a buzzer. Pass in `true` to switch a light on and `f
 4. When done press the button on your USB dongle and hold it until the blue LED lights up
 
 ## Changelog
+
+### 2.1.0
+- Support for multiple USB dongles (see `examples/multi-blink.js`)
 
 ### 2.0.0
 - Forked version from [functino/buzz-buzzers](https://github.com/functino/buzz-buzzers)
